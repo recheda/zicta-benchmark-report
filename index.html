@@ -9,26 +9,39 @@
             box-sizing: border-box;
         }
         
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 11pt;
-            line-height: 1.6;
-            color: #334155;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff; /* Sets the canvas background to pure white */
+        /* CSS PRINT LAYOUT RULES: Configures physical page boundaries */
+        @page {
+            size: A4;
+            margin: 25mm 20mm; /* Standard professional corporate margins */
         }
         
-        /* Cover Page Styling running flush to the page width */
+        @page :first {
+            margin: 0; /* Full bleed canvas layout for the cover sheet background */
+        }
+        
+        body {
+            font-family: 'Bookman Old Style', Georgia, serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #1e293b;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+        
+        /* Cover Page Configuration */
         .cover-page {
-            min-height: 100vh;
+            height: 297mm;
+            max-height: 297mm;
+            overflow: hidden;
             position: relative;
-            padding: 60px 50px;
+            padding: 35mm 25mm 25mm 25mm;
             color: white;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
+            page-break-after: always; /* Drops main body content to Page 2 instantly */
         }
         
         .cover-accent {
@@ -46,23 +59,23 @@
             letter-spacing: 2px;
             color: #38bdf8;
             font-weight: bold;
-            margin-top: 20px;
+            margin-bottom: 8mm;
         }
         
         .cover-header {
-            margin: 40px 0 20px 0;
+            margin-bottom: 5mm;
         }
 
         .cover-title {
-            font-size: 26pt;
+            font-size: 25pt;
             font-weight: 700;
             line-height: 1.3;
             color: #ffffff;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .cover-subtitle {
-            font-size: 13pt;
+            font-size: 12.5pt;
             color: #94a3b8;
             font-weight: 300;
             line-height: 1.6;
@@ -70,77 +83,98 @@
             padding-left: 20px;
         }
 
+        /* ADAPTIVE SHADOW BOX CONTAINER: Shrink-wraps tightly around the image proportions */
         .cover-collage-frame {
             width: 100%;
-            margin: 25px 0;
-            text-align: center;
+            max-width: 740px;
+            height: auto; /* Dynamically sizes to match the image scale */
+            margin: 10mm auto;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            /* Rich premium element anchoring shadows */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 
+                        0 12px 24px -8px rgba(0, 0, 0, 0.5);
         }
         
+        /* PURE SCALE ENGINE: Fills the frame completely with ZERO cropping or distortion */
         .cover-collage-img {
             width: 100%;
-            max-width: 920px;
             height: auto;
-            border: none;
-            opacity: 0.9;
+            display: block;
+            object-fit: contain; /* Keeps the entire image completely un-cropped and crisp */
         }
         
         .cover-meta {
-            border-top: 1px solid #334155;
-            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
             margin-top: auto;
         }
         
         .meta-grid {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 10px 20px;
+            display: table;
+            width: 100%;
+        }
+        
+        .meta-row {
+            display: table-row;
+        }
+        
+        .meta-cell {
+            display: table-cell;
+            padding-bottom: 10px;
             font-size: 11pt;
         }
         
         .meta-label {
             color: #94a3b8;
             font-weight: bold;
+            width: 140px;
         }
         
         .meta-value {
             color: #f1f5f9;
         }
 
-        /* Content Area flowing directly into the main body area */
+        /* Main Body Canvas Setup */
         .content-container {
-            padding: 60px 50px;
+            padding-top: 5mm;
             background-color: #ffffff;
         }
         
         h1, h2, h3 {
-            color: #1e3a8a;
+            font-family: 'Bookman Old Style', Georgia, serif;
+            color: #0f172a;
             font-weight: 700;
+            page-break-after: avoid;
         }
         
         h1 {
-            font-size: 20pt;
-            border-bottom: 2px solid #38bdf8;
-            padding-bottom: 8px;
+            font-size: 19pt;
+            border-bottom: 1px solid #cbd5e1;
+            padding-bottom: 6px;
             margin-top: 45px;
             margin-bottom: 20px;
+            page-break-before: always; /* Page break enforcement pointer */
         }
 
         h1:first-of-type {
             margin-top: 0;
+            page-break-before: avoid;
         }
         
         h2 {
-            font-size: 15pt;
+            font-size: 14pt;
             margin-top: 35px;
             margin-bottom: 15px;
-            color: #1e40af;
+            color: #1e3a8a;
         }
         
         p {
             margin-top: 0;
             margin-bottom: 16px;
             text-align: justify;
-            color: #334155;
+            color: #1e293b;
         }
         
         ul {
@@ -151,7 +185,8 @@
         
         li {
             margin-bottom: 8px;
-            color: #334155;
+            color: #1e293b;
+            text-align: justify;
         }
         
         table {
@@ -159,24 +194,23 @@
             border-collapse: collapse;
             margin: 30px 0;
             background-color: #ffffff;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #94a3b8;
+            page-break-inside: avoid; /* Prevents tables breaking mid-row */
         }
         
         th, td {
-            padding: 14px 16px;
+            padding: 12px 14px;
             text-align: left;
             vertical-align: top;
-            border-bottom: 1px solid #e2e8f0;
+            border: 1px solid #94a3b8;
+            font-size: 10pt;
         }
         
         th {
-            background-color: #1e3a8a;
+            background-color: #0f172a;
             color: white;
             font-weight: 600;
             font-size: 10.5pt;
-            letter-spacing: 0.5px;
         }
         
         tr:nth-child(even) {
@@ -184,61 +218,65 @@
         }
         
         .callout {
-            background-color: #e0f2fe;
-            border-left: 5px solid #0284c7;
-            padding: 18px 20px;
+            background-color: #f1f5f9;
+            border-left: 4px solid #0f172a;
+            padding: 15px 18px;
             margin: 25px 0;
-            border-radius: 0 8px 8px 0;
+            page-break-inside: avoid;
         }
 
         .inline-visual-block {
             width: 100%;
             text-align: center;
-            margin: 35px 0;
+            margin: 30px 0;
+            page-break-inside: avoid; /* Prevents text splitting from figures */
         }
 
         .report-photo {
             width: 100%;
-            max-width: 700px;
+            max-width: 650px;
             height: auto;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #cbd5e1;
         }
 
         .fig-caption {
             font-size: 9.5pt;
-            color: #64748b;
+            color: #475569;
             text-align: center;
             margin-top: 10px;
             font-style: italic;
         }
 
-        /* Signatures Layout */
         .sign-section {
-            margin-top: 60px;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 30px;
+            margin-top: 50px;
+            page-break-inside: avoid; /* Keeps submission signatures grouped together */
         }
 
-        .sign-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 30px;
-            page-break-inside: avoid;
+        .sign-table {
+            width: 100%;
+            border: none;
+            background: transparent;
+            margin-top: 25px;
+        }
+
+        .sign-table td {
+            border: none;
+            width: 50%;
+            padding: 0 20px 0 0;
+            background: transparent;
         }
 
         .sign-line {
-            border-top: 1px dashed #64748b;
-            margin-top: 50px;
-            padding-top: 10px;
+            border-top: 1px dashed #475569;
+            margin-top: 45px;
+            padding-top: 8px;
             font-weight: 600;
-            color: #1e293b;
+            color: #0f172a;
         }
         
         .sign-title {
-            font-size: 10pt;
-            color: #64748b;
+            font-size: 9.5pt;
+            color: #475569;
             line-height: 1.4;
         }
     </style>
@@ -260,14 +298,18 @@
         
         <div class="cover-meta">
             <div class="meta-grid">
-                <div class="meta-label">Host Agency:</div>
-                <div class="meta-value">Zambia Information and Communications Technology Authority (ZICTA)</div>
-                
-                <div class="meta-label">Date:</div>
-                <div class="meta-value">June 2026</div>
-                
-                <div class="meta-label">Prepared By:</div>
-                <div class="meta-value">Technical Delegation, Engineering & Communications Infrastructure</div>
+                <div class="meta-row">
+                    <div class="meta-cell meta-label">Host Agency:</div>
+                    <div class="meta-cell meta-value">Zambia Information and Communications Technology Authority (ZICTA)</div>
+                </div>
+                <div class="meta-row">
+                    <div class="meta-cell meta-label">Date:</div>
+                    <div class="meta-cell meta-value">June 2026</div>
+                </div>
+                <div class="meta-row">
+                    <div class="meta-cell meta-label">Prepared By:</div>
+                    <div class="meta-cell meta-value">Technical Delegation, Engineering & Communications Infrastructure</div>
+                </div>
             </div>
         </div>
     </div>
@@ -286,7 +328,7 @@
         <h1>2.0 Delegation Composition</h1>
         <p>The Commission was represented by the following technical officials during the benchmarking and attachment exercise:</p>
         <ul>
-            <li><strong>Mr. Robert Echeda</strong> – Manager, Spectrum Utilization and Compliance</li>
+            <li><strong>Mr. Robert Echeda</strong> – Manager, Spectrum Compliance and Utilization</li>
             <li><strong>Mr. Isaac Olobo</strong> – Officer, Broadcast Authorization</li>
         </ul>
 
@@ -315,7 +357,7 @@
         </div>
 
         <div class="inline-visual-block">
-            <img src="20260625_134558.jpg" class="report-photo" alt="Fixed Monitoring Station Tower System">
+            <img src="mast.jpg" class="report-photo" alt="Fixed Monitoring Station Tower System">
             <div class="fig-caption"><strong>FIGURE 2:</strong> Standalone, compact high-efficiency green-energy solar array integrated at the base of the remote spectrum monitoring mast.</div>
         </div>
 
@@ -340,9 +382,6 @@
             <img src="ceremony.jpg" class="report-photo" alt="Bilateral Gift Presentation Exchange">
             <div class="fig-caption"><strong>FIGURE 4:</strong> Formal presentation exchange commemorating the institutional cooperation and data transfer frameworks between peer regulators.</div>
         </div>
-
-        <h2>4.4 Bilateral Strategic Interfacing</h2>
-        <p>In addition to formal baseline framework verification sessions, technical delegates convened key strategic discussions during structural break exercises to establish continuous information pipelines between the commissions.</p>
 
         <div class="inline-visual-block">
             <img src="WhatsApp Image 2026-06-27 at 16.15.03.jpg" class="report-photo" alt="Delegates Interfacing Engagement">
@@ -400,16 +439,18 @@
 
         <div class="sign-section">
             <p><strong>Prepared and Submitted by:</strong></p>
-            <div class="sign-grid">
-                <div class="sign-block">
-                    <div class="sign-line">Echeda Robert</div>
-                    <div class="sign-title">Manager, Spectrum Utilization and Compliance<br>Uganda Communications Commission</div>
-                </div>
-                <div class="sign-block">
-                    <div class="sign-line">Isaac Olobo</div>
-                    <div class="sign-title">Officer, Broadcast Authorization<br>Uganda Communications Commission</div>
-                </div>
-            </div>
+            <table class="sign-table">
+                <tr>
+                    <td>
+                        <div class="sign-line">Echeda Robert</div>
+                        <div class="sign-title">Manager, Spectrum Compliance and Utilization<br>Uganda Communications Commission</div>
+                    </td>
+                    <td>
+                        <div class="sign-line">Isaac Olobo</div>
+                        <div class="sign-title">Officer, Broadcast Authorization<br>Uganda Communications Commission</div>
+                    </td>
+                </tr>
+            </table>
         </div>
         
     </div>
