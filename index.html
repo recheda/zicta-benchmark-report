@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZICTA Benchmarking and Attachment Report</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #334155;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8; /* Light blue document background */
+        }
+
+        .browser-wrapper {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        /* Cover Page Styling */
+        .cover-page {
+            min-height: 100vh;
+            position: relative;
+            padding: 60px 50px;
+            color: white;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .cover-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: #2563eb;
+        }
+        
+        .cover-org {
+            font-size: 13pt;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #38bdf8;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        
+        .cover-header {
+            margin: 40px 0 20px 0;
+        }
+
+        .cover-title {
+            font-size: 26pt;
+            font-weight: 700;
+            line-height: 1.3;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        
+        .cover-subtitle {
+            font-size: 13pt;
+            color: #94a3b8;
+            font-weight: 300;
+            line-height: 1.6;
+            border-left: 4px solid #38bdf8;
+            padding-left: 20px;
+        }
+
+        /* Centered Cover Collage Container - Aligned perfectly with the layout width */
+        .cover-collage-frame {
+            width: 100%;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .cover-collage-img {
+            width: 100%;
+            max-width: 520px;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+        
+        .cover-meta {
+            border-top: 1px solid #334155;
+            padding-top: 25px;
+            margin-top: auto;
+        }
+        
+        .meta-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px 20px;
+            font-size: 11pt;
+        }
+        
+        .meta-label {
+            color: #94a3b8;
+            font-weight: bold;
+        }
+        
+        .meta-value {
+            color: #f1f5f9;
+        }
+
+        /* Content Area Styling */
+        .content-container {
+            padding: 60px 50px;
+            background-color: #f8fafc;
+        }
+        
+        h1, h2, h3 {
+            color: #1e3a8a;
+            font-weight: 700;
+        }
+        
+        h1 {
+            font-size: 20pt;
+            border-bottom: 2px solid #38bdf8;
+            padding-bottom: 8px;
+            margin-top: 45px;
+            margin-bottom: 20px;
+        }
+
+        h1:first-of-type {
+            margin-top: 0;
+        }
+        
+        h2 {
+            font-size: 15pt;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            color: #1e40af;
+        }
+        
+        p {
+            margin-top: 0;
+            margin-bottom: 16px;
+            text-align: justify;
+            color: #334155;
+        }
+        
+        ul {
+            margin-top: 0;
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            color: #334155;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        th {
+            background-color: #1e3a8a;
+            color: white;
+            font-weight: 600;
+            font-size: 10.5pt;
+            letter-spacing: 0.5px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        
+        .callout {
+            background-color: #e0f2fe;
+            border-left: 5px solid #0284c7;
+            padding: 18px 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Pure In-line Aspect Ratio Preserving Containers */
+        .inline-visual-block {
+            width: 100%;
+            text-align: center;
+            margin: 35px 0;
+        }
+
+        .report-photo {
+            width: 100%;
+            max-width: 700px;
+            height: auto; /* Fully guarantees NO distortion */
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .fig-caption {
+            font-size: 9.5pt;
+            color: #64748b;
+            text-align: center;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Signatures Layout */
+        .sign-section {
+            margin-top: 60px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 30px;
+        }
+
+        .sign-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+            page-break-inside: avoid;
+        }
+
+        .sign-line {
+            border-top: 1px dashed #64748b;
+            margin-top: 50px;
+            padding-top: 10px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .sign-title {
+            font-size: 10pt;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .browser-wrapper { margin: 0; border-radius: 0; }
+            .cover-page, .content-container { padding: 30px 20px; }
+            .sign-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="browser-wrapper">
+        
+        <div class="cover-page">
+            <div class="cover-accent"></div>
+            <div class="cover-org">Uganda Communications Commission</div>
+            
+            <div class="cover-header">
+                <div class="cover-title">Report on the Benchmarking & Technical Attachment Exercise</div>
+                <div class="cover-subtitle">Practical Insights into ZICTA Spectrum Management, Licensing Frameworks, and Regulatory Modernization</div>
+            </div>
+            
+            <div class="cover-collage-frame">
+                <img src="BenchMark with Zicta pic.jpg" class="cover-collage-img" alt="ZICTA Technical Attachment Insights Collage">
+            </div>
+            
+            <div class="cover-meta">
+                <div class="meta-grid">
+                    <div class="meta-label">Host Agency:</div>
+                    <div class="meta-value">Zambia Information and Communications Technology Authority (ZICTA)</div>
+                    
+                    <div class="meta-label">Date:</div>
+                    <div class="meta-value">June 2026</div>
+                    
+                    <div class="meta-label">Prepared By:</div>
+                    <div class="meta-value">Technical Delegation, Engineering & Communications Infrastructure</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-container">
+            
+            <h1>1.0 Introduction and Objectives</h1>
+            <p>In pursuit of regulatory excellence, the Uganda Communications Commission undertook a comprehensive benchmarking and technical attachment exercise with the Zambia Information and Communications Technology Authority. The primary objective of this initiative was to evaluate and adopt international best practices in compliance monitoring, quality of service assessment for broadcasting, radio frequency spectrum usage, and associated regulatory frameworks.</p>
+            <p>ZICTA was selected as a peer regulator due to its robust broadcasting sector, advanced spectrum management processes, and recent technological transitions. The specific objectives of the visit were to gain practical insights into:</p>
+            <ul>
+                <li>Broadcast systems, emerging technologies, equipment assessment methodologies, and test systems.</li>
+                <li>Radio frequency spectrum compliance evaluation techniques and licensing frameworks.</li>
+                <li>Modernization strategies for spectrum monitoring infrastructure.</li>
+            </ul>
+
+            <h1>2.0 Delegation Composition</h1>
+            <p>The Commission was represented by the following technical officials during the benchmarking and attachment exercise:</p>
+            <ul>
+                <li><strong>Mr. Robert Echeda</strong> – Manager, Spectrum Utilization and Compliance</li>
+                <li><strong>Mr. Isaac Olobo</strong> – Officer, Broadcast Authorization</li>
+            </ul>
+
+            <h1>3.0 Context & Baseline Comparison</h1>
+            <p>As part of its strategic mandate, the Commission primarily operates TCI spectrum monitoring infrastructure and has recently completed a comprehensive upgrade to address equipment obsolescence. While the TCI systems have demonstrated strong, reliable performance, the technical team is actively exploring vendor diversification strategies to enhance cost-effectiveness, build system redundancy, and improve overall network resilience.</p>
+            <p>Comparatively, ZICTA presents several highly relevant operational case studies for the Commission:</p>
+            <ul>
+                <li><strong>Infrastructure Modernization:</strong> ZICTA recently completed a major migration of its spectrum monitoring infrastructure from legacy TCI systems to advanced LS telecom platforms.</li>
+                <li><strong>Emerging Technologies:</strong> ZICTA was a pioneer in Africa in licensing Starlink operations and facilitating Direct-to-Device trials via MTN. This aligns closely with the Commission's recent issuance of landing rights to Starlink, providing a critical reference framework.</li>
+                <li><strong>Spectrum Allocation Mechanics:</strong> ZICTA utilizes a hybrid spectrum planning model incorporating both first-come, first-served and competitive beauty contest methodologies, having successfully concluded a spectrum auction in the 2.6 GHz band and active preparations for the 3.3 GHz band.</li>
+            </ul>
+
+            <h1>4.0 Key Technical Areas of Benchmarking</h1>
+            
+            <h2>4.1 Central & Remote Monitoring Systems</h2>
+            <p>The team inspected ZICTA's Central Monitoring Unit and Central Network Operations Center. While core monitoring methodologies mirror those of the Commission, ZICTA has successfully integrated real-time performance monitoring of operator base stations. The central dashboard displays the operational status of all operator sites concurrently, allowing engineers to instantly flag anomalies and formally issue Requests for Explanation to non-compliant operators.</p>
+            
+            <div class="inline-visual-block">
+                <img src="noc.jpg" class="report-photo" alt="ZICTA NOC Screen Dashboard View">
+                <div class="fig-caption"><strong>FIGURE 1:</strong> Engineering review of the live concurrent carrier health and operational status matrix at ZICTA's Central NOC dashboard.</div>
+            </div>
+
+            <div class="callout">
+                <p><strong>Field Visit: Remote Monitoring Station (Livingstone)</strong><br>
+                Located approximately 600km from Lusaka, this station features a compact mast-mounted processor equipped with a standalone solar power system. It utilizes an integrated wireless network router with a cellular identity module slot for high-speed backhaul over 4G and 5G networks into the core system virtual private network. This identical architecture is deployed across Mobile Monitoring Units, harmonizing all remote, fixed, and mobile nodes into a single central server.</p>
+            </div>
+
+            <div class="inline-visual-block">
+                <img src="mast.jpg" class="report-photo" alt="Fixed Monitoring Station Tower System">
+                <div class="fig-caption"><strong>FIGURE 2:</strong> Standalone, compact high-efficiency green-energy solar array integrated at the base of the remote spectrum monitoring mast.</div>
+            </div>
+
+            <h2>4.2 Spectrum Planning, Satellite Frameworks, and Frequency Billing</h2>
+            <p>Engagement with the Spectrum Planning team revealed aligned overarching business process flows but distinct variations in licensing tariffs. To resolve historical disputes and audit complexities regarding equipment-based frequency licenses—a challenge currently mirrored at the Commission—ZICTA transitioned its licensing framework for Two-Way VHF and Microwave links away from per-unit charging to a flat frequency license.</p>
+            <ul>
+                <li><strong>VHF Framework:</strong> Billing is levied on an assigned frequency band per district, allowing operators an unrestricted number of end-user devices within that geographical boundary.</li>
+                <li><strong>Microwave Link Framework:</strong> Billing is applied directly to the assigned frequency band, removing constraints or variable charges based on the actual number of logical or physical links deployed nationwide.</li>
+                <li><strong>Satellite Landing Rights:</strong> ZICTA possesses a mature regulatory framework for Geostationary Orbit satellite landing rights, utilizing a tiered licensing structure based on user terminal numbers, explicitly governing Earth Stations in Motion and Internet of Things applications.</li>
+            </ul>
+
+            <div class="inline-visual-block">
+                <img src="vehicle.jpg" class="report-photo" alt="Mobile Monitoring Unit Vehicle Infrastructure">
+                <div class="fig-caption"><strong>FIGURE 3:</strong> Technical inspection of ZICTA’s specialized Mobile Monitoring Unit vehicle featuring a heavy-duty telescopic pneumatic mast.</div>
+            </div>
+
+            <h2>4.3 Compliance, Standards, and Broadcasting</h2>
+            <p>A technical session with the Standards Unit confirmed that both regulators face identical hurdles in verifying the authenticity of foreign test reports. Discussions focused on establishing collaborative mitigation strategies, such as developing Mutual Recognition Agreements.</p>
+            <p>Furthermore, ZICTA has operationalized a mandatory physical and digital labelling regime for all type-approved products, complemented by an open database. In terms of national numbering frameworks, ZICTA consulted the Commission on the deployment of Mobile Number Portability. Reciprocally, the Commission shared its advanced standing in Digital Audio Broadcasting technical trials and regulatory texts to guide ZICTA's upcoming introduction of Digital Audio Broadcasting.</p>
+
+            <div class="inline-visual-block">
+                <img src="ceremony.jpg" class="report-photo" alt="Bilateral Gift Presentaton Exchange">
+                <div class="fig-caption"><strong>FIGURE 4:</strong> Formal presentation exchange commemorating the institutional cooperation and data transfer frameworks between peer regulators.</div>
+            </div>
+
+            <h1>5.0 Key Takeaways & Proposed Implementation Matrix</h1>
+            <p>The following matrix outlines the core actionable items arising from the benchmarking exercise tailored to the Commission's current context:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Technical Initiative</th>
+                        <th style="width: 45%;">Proposed Implementation Strategy</th>
+                        <th style="width: 25%;">Feasibility Focus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Real-Time Operator Dashboards</strong></td>
+                        <td>Assess integrating live Network Management System data feeds from major operators into the Central Monitoring Unit to instantly monitor base station uptime.</td>
+                        <td>Requires regulatory mandate or license modifications for secure access tokens.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Standalone Compact Solar Power</strong></td>
+                        <td>Formally advise the Administration unit to study the engineering feasibility of adopting ZICTA's remote site model using efficient solar and high-speed backhaul.</td>
+                        <td>High feasibility; optimizes fixed spectrum monitoring station network reliability.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flat Frequency-Based Billing</strong></td>
+                        <td>Migrate tariff structures from unit-based link billing to flat frequency-band charging per district for VHF or total bandwidth for Microwave networks.</td>
+                        <td>Requires comprehensive revenue-impact modeling before deployment.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Modular Satellite Landing Frameworks</strong></td>
+                        <td>Initiate formal technical consultations with ZICTA to benchmark their tiered user-terminal framework for geostationary and non-geostationary mega-constellations.</td>
+                        <td>Urgent and highly recommended to accelerate current reviews.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Equipment Labelling & Verification</strong></td>
+                        <td>Operationalize a mandatory physical and digital equipment labelling regime backed by an open public database and pursue regional Mutual Recognition Agreements.</td>
+                        <td>Reduces compliance enforcement and auditing overhead.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Digital Audio Broadcasting Policy</strong></td>
+                        <td>Leverage Uganda's advanced standing in trials as a strategic bilateral tool, sharing technical codes in exchange for real-time peer review.</td>
+                        <td>Ensures upcoming final regulations are robust and harmonized.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h1>6.0 Conclusion and Way Forward</h1>
+            <p>The benchmarking exercise with ZICTA confirmed that while both regulators share aligned core workflows, ZICTA's recent transition to advanced telecom platforms, scalable satellite frameworks, and automated compliance tools offers an excellent operational blueprint for the Commission. Adopting their approaches to real-time operator monitoring dashboards, standalone solar backhaul infrastructure, and simplified, flat frequency-based billing will directly resolve the Commission's current technical limitations, power reliability issues, and administrative auditing bottlenecks.</p>
+            <p>To maximize the value of this exercise, the Commission should immediately review the feasibility of these structural upgrades. Using Uganda's advanced standing in Digital Audio Broadcasting trials as strategic leverage for continued, bilateral knowledge-sharing will ensure our upcoming regulatory frameworks are both robust and regionally harmonized.</p>
+
+            <div class="sign-section">
+                <p><strong>Prepared and Submitted by:</strong></p>
+                <div class="sign-grid">
+                    <div class="sign-block">
+                        <div class="sign-line">Echeda Robert</div>
+                        <div class="sign-title">Manager, Spectrum Utilization and Compliance<br>Uganda Communications Commission</div>
+                    </div>
+                    <div class="sign-block">
+                        <div class="sign-line">Isaac Olobo</div>
+                        <div class="sign-title">Officer, Broadcast Authorization<br>Uganda Communications Commission</div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+</html>
